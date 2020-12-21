@@ -203,9 +203,7 @@ const resolvers = {
             as: "vendedor",
           },
         },
-        {
-          $limit: 3,
-        },
+
         {
           $sort: { total: -1 },
         },
