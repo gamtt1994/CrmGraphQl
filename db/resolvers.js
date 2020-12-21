@@ -38,6 +38,16 @@ const resolvers = {
         console.log(error);
       }
     },
+    obtenerTransportistas: async (_, { id }) => {
+      // revisar si el producto existe o no
+      const transportista = await Transportista.findById(id);
+
+      if (!transportista) {
+        throw new Error("transportista no encontrado");
+      }
+
+      return transportista;
+    },
     obtenerVehiculos: async (_, {}) => {
       try {
         const vehiculo = await Vehiculo.find().populate("transportista");
@@ -66,6 +76,16 @@ const resolvers = {
       }
 
       return producto;
+    },
+    obtenerVehiculo: async (_, { id }) => {
+      // revisar si el producto existe o no
+      const vehiculo = await Vehiculo.findById(id);
+
+      if (!vehiculo) {
+        throw new Error("Vehiculo no encontrado");
+      }
+
+      return vehiculo;
     },
     obtenerVehiculo: async (_, { id }) => {
       // revisar si el producto existe o no
@@ -224,6 +244,24 @@ const resolvers = {
     },
   },
   Mutation: {
+    nuevoUsuario: async (_, { input }) => {
+      const { email, password } = input;
+
+      const existeUsuario = await Usuario.findOne({ email });
+      if (existeUsuario) {
+        throw new Error("El usuario ya está registrado");
+      }
+
+      const salt = await bcryptjs.genSalt(10);
+      input.password = await bcryptjs.hash(password, salt);
+      try {
+        const usuario = new Usuario(input);
+        usuario.save();
+        return usuario;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     nuevoTransportista: async (_, { input }) => {
       console.log(input);
       const { email, password } = input;
