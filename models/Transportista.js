@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const UsuariosSchema = mongoose.Schema({
+const TransportistaSchema = mongoose.Schema({
   nombre: {
     type: String,
     required: true,
@@ -10,6 +10,12 @@ const UsuariosSchema = mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  dni: {
+    type: Number,
+    required: true,
+    trim: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -28,4 +34,4 @@ const UsuariosSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Usuario", UsuariosSchema);
+module.exports = mongoose.model("Transportista", TransportistaSchema);

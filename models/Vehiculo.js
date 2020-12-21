@@ -1,31 +1,37 @@
 const mongoose = require("mongoose");
 
-const UsuariosSchema = mongoose.Schema({
-  nombre: {
+const VehiculoSchema = mongoose.Schema({
+  marca: {
     type: String,
     required: true,
     trim: true,
   },
-  apellido: {
+  modelo: {
     type: String,
     required: true,
     trim: true,
   },
-  email: {
+  placa: {
     type: String,
     required: true,
     trim: true,
     unique: true,
   },
-  password: {
+  color: {
     type: String,
     required: true,
     trim: true,
   },
+  transportista: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Transportista",
+  },
+
   creado: {
     type: Date,
     default: Date.now(),
   },
 });
 
-module.exports = mongoose.model("Usuario", UsuariosSchema);
+module.exports = mongoose.model("Vehiculo", VehiculoSchema);
